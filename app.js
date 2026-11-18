@@ -1,49 +1,74 @@
+
 const input = document.getElementById("mediaUrl");
 const statusBox = document.getElementById("status");
+
 const platforms = [
-  ["TikTok", /(^|\.)tiktok\.com$/i],
-  ["Facebook", /(^|\.)facebook\.com$|(^|\.)fb\.watch$/i],
-  ["Instagram", /(^|\.)instagram\.com$/i],
-  ["YouTube", /(^|\.)youtube\.com$|(^|\.)youtu\.be$/i],
-  ["Pinterest", /(^|\.)pinterest\.com$|(^|\.)pin\.it$/i],
-  ["X", /(^|\.)x\.com$|(^|\.)twitter\.com$/i]
+  ["TikTok", ["tiktok.com"]],
+  ["Facebook", ["facebook.com", "fb.watch"]],
+  ["Instagram", ["instagram.com"]],
+  ["YouTube", ["youtube.com", "youtu.be"]],
+  ["Pinterest", ["pinterest.com", "pin.it"]],
+  ["X (Twitter)", ["x.com", "twitter.com", "t.co"]],
+  ["Threads", ["threads.net"]],
+  ["Snapchat", ["snapchat.com"]],
+  ["Reddit", ["reddit.com", "redd.it"]],
+  ["Vimeo", ["vimeo.com"]],
+  ["Dailymotion", ["dailymotion.com", "dai.ly"]],
+  ["Twitch", ["twitch.tv"]]
 ];
 
-document.getElementById("year").textContent = new Date().getFullYear();
+document.getElementById("year").textContent =
+  new Date().getFullYear();
+
+function showStatus(message, type = "") {
+  statusBox.className = "status " + type;
+  statusBox.textContent = message;
+}
+
+function detectPlatform(raw) {
+  const url = new URL(raw);
+  if (!["http:", "https:"].includes(url.protocol)) return null;
+
+  const host = url.hostname.toLowerCase().replace(/^www\./, "");
+
+  return platforms.find(([, domains]) =>
+    domains.some(domain =>
+      host === domain || host.endsWith("." + domain)
+    )
+  );
+}
 
 document.getElementById("pasteBtn").addEventListener("click", async () => {
   try {
     input.value = await navigator.clipboard.readText();
-    statusBox.className = "status";
-    statusBox.textContent = "লিংক পেস্ট হয়েছে। এখন যাচাই করুন।";
+    showStatus("লিংক পেস্ট হয়েছে। এবার যাচাই করুন।");
   } catch {
-    statusBox.className = "status error";
-    statusBox.textContent = "Clipboard access পাওয়া যায়নি। নিজে লিংক পেস্ট করুন।";
+    showStatus("লিংক পেস্ট করা যায়নি। নিজে পেস্ট করুন।", "error");
   }
 });
 
 document.getElementById("checkBtn").addEventListener("click", () => {
   const raw = input.value.trim();
-  statusBox.className = "status";
+
   if (!raw) {
-    statusBox.className = "status error";
-    statusBox.textContent = "প্রথমে একটি লিংক দিন।";
+    showStatus("প্রথমে একটি লিংক দিন।", "error");
     return;
   }
+
   try {
-    const url = new URL(raw);
-    if (!["http:", "https:"].includes(url.protocol)) throw new Error("protocol");
-    const host = url.hostname.toLowerCase().replace(/^www\./, "");
-    const found = platforms.find(([, pattern]) => pattern.test(host));
+    const found = detectPlatform(raw);
+
     if (!found) {
-      statusBox.className = "status error";
-      statusBox.textContent = "এই প্ল্যাটফর্মটি এখনো শনাক্ত করা যাচ্ছে না।";
+      showStatus("এই লিংকটি সমর্থিত প্ল্যাটফর্মের নয়।", "error");
       return;
     }
-    statusBox.className = "status success";
-    statusBox.textContent = `${found[0]} লিংক শনাক্ত হয়েছে। ডাউনলোড চালু করতে এই প্ল্যাটফর্মের অনুমোদিত API/ব্যাকএন্ড সংযোগ করতে হবে।`;
+
+    showStatus(
+      `${found[0]} লিংক সফলভাবে শনাক্ত হয়েছে! অনুমোদিত ডাউনলোড সুবিধা সংযুক্ত হলে পরবর্তী ধাপে এগোনো যাবে।`,
+      "success"
+    );
+
   } catch {
-    statusBox.className = "status error";
-    statusBox.textContent = "সঠিক সম্পূর্ণ URL দিন (https:// দিয়ে শুরু করুন)।";
+    showStatus("সঠিক URL দিন। যেমন: https://example.com", "error");
   }
 });

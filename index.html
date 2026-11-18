@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="bn">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101827">
+  <title>Hujaifa Downloader</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#"><span class="brand-icon">↓</span><span>HUJAIFA <b>DOWNLOADER</b></span></a>
+    <span class="tag">ALL-IN-ONE MEDIA TOOL</span>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="eyebrow">SIMPLE · FAST · MOBILE FRIENDLY</div>
+      <h1>আপনার পছন্দের মিডিয়া,<br><span>এক জায়গায়।</span></h1>
+      <p class="intro">সমর্থিত সোশ্যাল প্ল্যাটফর্মের নিজের বা অনুমতিপ্রাপ্ত পাবলিক কনটেন্টের লিংক দিন।</p>
+
+      <section class="download-card" aria-label="লিংক যাচাই">
+        <label for="mediaUrl">ভিডিও বা ছবির লিংক</label>
+        <div class="input-row">
+          <input id="mediaUrl" type="url" placeholder="https://example.com/post/..." autocomplete="url">
+          <button id="pasteBtn" class="paste-btn" type="button">Paste</button>
+        </div>
+        <button id="checkBtn" class="primary-btn" type="button">লিংক যাচাই করুন <span>→</span></button>
+        <p id="status" class="status" role="status">এখনো কোনো লিংক দেওয়া হয়নি।</p>
+      </section>
+      <p class="notice">নোট: এই প্রাথমিক সংস্করণে লিংক শনাক্ত করা হয়। ডাউনলোড চালু করতে অনুমোদিত API/ব্যাকএন্ড সংযোগ প্রয়োজন।</p>
+    </section>
+
+    <section class="platform-section">
+      <div class="section-heading">
+        <div><div class="eyebrow">SUPPORTED PLATFORMS</div><h2>প্ল্যাটফর্ম নির্বাচন</h2></div>
+        <span class="count">০৬</span>
+      </div>
+      <div class="platform-grid">
+        <article class="platform"><span class="platform-icon tiktok">♪</span><b>TikTok</b><small>ভিডিও / ছবি</small></article>
+        <article class="platform"><span class="platform-icon facebook">f</span><b>Facebook</b><small>পাবলিক পোস্ট</small></article>
+        <article class="platform"><span class="platform-icon instagram">◎</span><b>Instagram</b><small>Reels / পোস্ট</small></article>
+        <article class="platform"><span class="platform-icon youtube">▶</span><b>YouTube</b><small>অনুমোদিত কনটেন্ট</small></article>
+        <article class="platform"><span class="platform-icon pinterest">P</span><b>Pinterest</b><small>ছবি / ভিডিও</small></article>
+        <article class="platform"><span class="platform-icon xbrand">𝕏</span><b>X</b><small>পাবলিক পোস্ট</small></article>
+      </div>
+    </section>
+
+    <section class="how">
+      <div class="eyebrow">HOW IT WORKS</div>
+      <h2>ব্যবহার করবেন যেভাবে</h2>
+      <div class="steps">
+        <div><span>01</span><b>লিংক কপি করুন</b><p>নিজের বা অনুমতিপ্রাপ্ত পোস্টের লিংক কপি করুন।</p></div>
+        <div><span>02</span><b>এখানে পেস্ট করুন</b><p>উপরের বক্সে লিংক দিয়ে যাচাই করুন।</p></div>
+        <div><span>03</span><b>সমর্থিত হলে এগোন</b><p>সার্ভার/API যুক্ত হলে উপলভ্য ডাউনলোড অপশন দেখাবে।</p></div>
+      </div>
+    </section>
+  </main>
+
+  <footer><div class="footer-brand">HUJAIFA DOWNLOADER</div><p>Built with care · © <span id="year"></span> Hujaifa Downloader</p><small>কনটেন্ট ব্যবহারের অধিকার ও সংশ্লিষ্ট প্ল্যাটফর্মের নিয়ম মেনে চলুন।</small></footer>
+  <script src="app.js"></script>
+</body>
+</html>
